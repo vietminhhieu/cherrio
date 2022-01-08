@@ -1,0 +1,52 @@
+1. table category (
+    id: int (primary key auto_increment),
+    name: string,
+    created_at datetime,
+	updated_at datetime,
+)
+
+2. table product (  
+    id: int (primary key auto_increment),
+    id_category: int (references category (id)),
+    name: string,                   /* 
+    thumbnail: string,
+    color: Array[string],
+    capacity: Array[string],            thegiodidong
+    price: number,
+    promotion: Array[string],
+    category: string,               */
+    description: Array[string], 
+    created_at datetime,
+	updated_at datetime,
+)
+
+3. table extraInfo (
+    id_product: int (references product (id)),
+    screenSize: string,
+    screenTechnology: string,
+    resolution: string,
+    frontCamera: string,
+    backCamera: Array[string],
+    video: Array[string],
+    chip: string,
+    ram: string, 
+    battery: string,
+    chargeTechnology: Array[string],
+    chargePort: string,
+    sim: string,
+    operatingSystem: string,
+    size: string,
+    weight: string,
+    backMaterial: string,
+    borderMaterial: string,
+)
+
+4. table feedback (
+    id_product: int (references product (id)),
+    customerName: string,
+    avatar: string, 
+    submitTime: datetime,
+    rating: number,
+    comment: string,
+    
+)

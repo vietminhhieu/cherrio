@@ -57,74 +57,6 @@ const res = require("express/lib/response");
 //   }
 // );
 
-const handleCapacity = (capacity) => {
-  const indexOfFirst = capacity[capacity.length - 1].indexOf("TB");
-  console.log(indexOfFirst);
-  const capacityItem = capacity[capacity.length - 1].slice(0, indexOfFirst + 2);
-  [a, ...rest] = capacity.reverse();
-  rest.reverse();
-  const finalCapacity = [];
-  rest.forEach((item, index) => {
-    item = item + "GB";
-    finalCapacity.push(item);
-  });
-  finalCapacity.push(capacityItem);
-  return finalCapacity;
-};
-
-request(
-  "https://www.thegioididong.com/dtdd/iphone-13-pro-max?src=osp",
-  (error, response, html) => {
-    if (!error && response.statusCode == 200) {
-      const $ = cheerio.load(html); // load HTML
-      // console.log(111);
-      $(".box_right").each((index, el) => {
-        const capacity = $(el).find(".box03.group.desk a").text().split("GB");
-        const finalCapacity = handleCapacity(capacity);
-        const color = $(el).find(".box03.color.group.desk a").text();
-        const price = $(el).find(".box-price-present").text();
-        const promotion = $(el)
-          .find(".divb.t4 p")
-          .text()
-          .split("  Xem chi tiết");
-        const category = $(el).find(".campaign.c1.dt span").text();
-        const description = $(el)
-          .find(".box_main")
-          .find(".block-tab-content")
-          .find(".review-post h3");
-
-        console.log("capacity: " + finalCapacity);
-        console.log("color: " + color);
-        console.log("price: " + price);
-        console.log("promotion: " + promotion);
-        console.log("category: " + category);
-        console.log("description: " + description);
-        // console.log(111);
-      });
-    } else {
-      console.log(error);
-    }
-  }
-);
-
-// request(
-//   "https://fptshop.com.vn/dien-thoai/apple-iphone",
-//   (error, response, html) => {
-//     if (!error && response.statusCode == 200) {
-//       const $ = cheerio.load(html); // load HTML
-
-//       $(".cdt-product-wrapper.m-b-20").each((index, el) => {
-//         // const name = $(el).find(".main-contain h3").text().trim();
-
-//         // console.log(name);
-//         console.log(111);
-//       });
-//     } else {
-//       console.log(error);
-//     }
-//   }
-// );
-
 /* TABLE EXTRA INFO */
 // request(
 //   "https://www.thegioididong.com/dtdd/iphone-13-pro-max?src=osp",
@@ -194,3 +126,120 @@ request(
 //     }
 //   }
 // );
+let data1 = [];
+let data2 = [];
+let data = [];
+
+request(
+  "https://www.thegioididong.com/dtdd/iphone-13-pro-max?src=osp",
+  (error, response, html) => {
+    if (!error && response.statusCode == 200) {
+      const $ = cheerio.load(html);
+      // let data = [];
+      $(".box_main").each((index, el) => {
+        let capacity = [],
+          color = [],
+          promotion = [];
+
+        //capacity
+        $(el)
+          .find(".box03.group.desk a")
+          .each((index, item) => {
+            let capacityNotHandle = $(item).text();
+            //Xử lý
+            if (
+              capacityNotHandle.includes("GB") ||
+              capacityNotHandle.includes("TB")
+            ) {
+              capacity.push(capacityNotHandle);
+            }
+            // console.log(capacity);
+          });
+
+        //color
+        $(el)
+          .find(".box03.color.group.desk a")
+          .each((index, item) => {
+            let colorItem = $(item).text();
+            // console.log(colorItem);
+            color.push(colorItem);
+          });
+
+        //price
+        const price = $(el).find(".box-price-present").text();
+        //xử lý
+
+        //promotion
+        $(el)
+          .find(".divb.t4 p")
+          .each((index, item) => {
+            let promotionNotHandle = $(item).text();
+            //Xử lý
+            const handlePromotion =
+              promotionNotHandle.includes("  Xem chi tiết") &&
+              promotionNotHandle.replace("  Xem chi tiết", ".");
+            // console.log(handlePromotion);
+            promotion.push(handlePromotion);
+          });
+
+        const category = $(el).find(".campaign.c1.dt span").text();
+
+        data1.push({
+          capacity,
+          color,
+          price,
+          promotion,
+          category,
+        }); // đẩy dữ liệu vào biến data
+
+        data.push({
+          capacity,
+          color,
+          price,
+          promotion,
+          category,
+        }); // đẩy dữ liệu vào biến data
+      });
+
+      fs.writeFileSync("data1.json", JSON.stringify(data1)); // lưu dữ liệu vào file data.json
+      fs.writeFileSync("data.json", JSON.stringify(data)); // lưu dữ liệu vào file data.json
+    } else {
+      console.log(error);
+    }
+  }
+);
+
+// request(
+//   "https://didongviet.vn/iphone-11-64gb-chinh-hang.html",
+//   (error, response, html) => {
+//     if (!error && response.statusCode == 200) {
+//       const $ = cheerio.load(html);
+//       const description = [];
+//       // let data = [];
+//       $(".product.attribute.description")
+//         .find("h2, h3, p, p img")
+//         .each((index, el) => {
+//           let descriptionItem = $(el).text();
+//           //xử lý
+//           if (descriptionItem === "") {
+//             descriptionItem = $(el).attr("src");
+//           }
+//           // console.log(descriptionItem);
+
+//           descriptionItem !== undefined && description.push(descriptionItem);
+//           console.log(description);
+//         });
+
+//       data2.push({ description });
+//       data.push({ description });
+
+//       fs.writeFileSync("data2.json", JSON.stringify(data2)); // lưu dữ liệu vào file data1.json
+//     } else {
+//       console.log(error);
+//     }
+//   }
+// );
+
+// console.log(data1);
+console.log(data);
+// fs.writeFileSync("data.json", JSON.stringify(data)); // lưu dữ liệu vào file data1.json
