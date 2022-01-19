@@ -3,41 +3,6 @@ const request = require("request-promise"); // khai báo module request-promise
 const fs = require("fs"); // require thêm module filesystem
 const res = require("express/lib/response");
 
-// request("https://123job.vn/tuyen-dung", (error, response, html) => {
-//   if (!error && response.statusCode == 200) {
-//     const $ = cheerio.load(html);
-//     let data = [];
-//     $("job__list-item").each((item, index) => {
-//       // const job = $(item).find(".job__list-item-title").text();
-//       // const company = $(item).find(".job__list-item-company").text();
-//       // const address = $(item)
-//       //   .find(".job__list-item-info")
-//       //   .find(".address")
-//       //   .text();
-//       // const salary = $(item).find(".job__list-item-info").find(".salary").text();
-//       // const title = $(item).find(".content-group__title").text();
-
-//       console.log(111);
-
-//       // console.log(job);
-//       // console.log(title);
-//       // console.log(address);
-//       // console.log(salary);
-//       // console.log(job, "---" + company, "---" + address, "---" + salary);
-//       // data.push({
-//       //   job,
-//       //   company,
-//       //   address,
-//       //   salary,
-//       // }); // đẩy dữ liệu vào biến data
-//     });
-
-//     // fs.writeFileSync("data.json", JSON.stringify(data)); // lưu dữ liệu vào file data.json
-//   } else {
-//     console.log(error);
-//   }
-// });
-
 /* TABLE PRODUCT */
 // request(
 //   "https://www.thegioididong.com/dtdd-apple-iphone",

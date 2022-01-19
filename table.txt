@@ -23,23 +23,26 @@
 
 3. table extraInfo (
     id_product: int (references product (id)),
-    screenSize: string,
     screenTechnology: string,
     resolution: string,
+    screenSize: string,
+    backCamera: string,
+    video: string,
     frontCamera: string,
-    backCamera: Array[string],
-    video: Array[string],
-    chip: string,
-    ram: string, 
-    battery: string,
-    chargeTechnology: Array[string],
-    chargePort: string,
-    sim: string,
     operatingSystem: string,
+    chip: string,
+    cpu: string,
+    gpu: string,
+    ram: string, 
+    internalMemory: string
+    sim: string,
+    wifi: string,
+    gps: string,
+    bluetooth: string, 
     size: string,
     weight: string,
-    backMaterial: string,
-    borderMaterial: string,
+    batteryCapacity: string,
+    batteryType: string,
 )
 
 4. table feedback (
