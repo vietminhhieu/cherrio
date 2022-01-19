@@ -8,14 +8,15 @@
 2. table product (  
     id: int (primary key auto_increment),
     id_category: int (references category (id)),
-    name: string,                   /* 
+    name: string,
     thumbnail: string,
-    color: Array[string],
-    capacity: Array[string],            thegiodidong
-    price: number,
+    color: Array[string], 
+    capacity: Array[string],
+    price: Array[string],
     promotion: Array[string],
-    category: string,               */
-    description: Array[string], 
+    category: string,
+    description: Array[string],
+    visited: number,
     created_at datetime,
 	updated_at datetime,
 )
@@ -47,6 +48,21 @@
     avatar: string, 
     submitTime: datetime,
     rating: number,
-    comment: string,
-    
+    feedbackContent: string,
 )
+
+5.table comment (
+    id_product: int (references product (id)),
+    customerName: string,
+    commentContent: string,
+    commentTime: datetime,
+    adminName: string,
+    response: string,
+)
+
+* Các chức năng chính:
+    - Đăng nhập / Đăng ký / Lấy lại mật khẩu
+    - Sửa thông tin người dùng
+    - Gọi điện, chat với khách hàng
+    - Thêm vào giỏ hàng
+    - Thanh toán
