@@ -56,11 +56,13 @@
 
 5.table comment (
     id_product: int (references product (id)),
-    customerName: string,
-    commentContent: string,
-    commentTime: datetime,
+    customerName: array[string],
+    customerAvatar: string,
+    commentContent: array[string],
+    commentTime: array[datetime],
     adminName: string,
-    response: string,
+    adminAvatar: string
+    response: array[string],
 )
 
 * Các chức năng chính:
