@@ -47,11 +47,11 @@
 
 4. table feedback (
     id_product: int (references product (id)),
-    customerName: string,
+    customerName: array[string],
     avatar: string, 
-    submitTime: datetime,
-    rating: number,
-    feedbackContent: string,
+    submitTime: array[datetime],
+    rating: array[number],
+    feedbackContent: array[string],
 )
 
 5.table comment (
